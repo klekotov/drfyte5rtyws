@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    container_name: autobuy-bot
+    environment:
+      TELEGRAM_TOKEN: ${TELEGRAM_TOKEN}
+      TELEGRAM_ADMIN_ID: ${TELEGRAM_ADMIN_ID}
+      DATABASE_URL: sqlite:///data/autobuy.db
+      WEBHOOK_URL: ${WEBHOOK_URL}
+      WEBHOOK_PORT: ${WEBHOOK_PORT}
+      CHECK_INTERVAL: 60
+      TIMEOUT: 5
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "${WEBHOOK_PORT}:${WEBHOOK_PORT}"
+    restart: unless-stopped
